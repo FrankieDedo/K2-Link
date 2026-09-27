@@ -1,0 +1,17 @@
+{
+  "schemaVersion": 1,
+  "id": "k2link",
+  "version": "${version}",
+  "name": "K2 Link",
+  "description": "Shows your health, hunger, hotbar and world state on a Mountain DisplayPad through K2. Read-only: serves the state on 127.0.0.1:34874 and never changes the game.",
+  "authors": ["FrankieDedo"],
+  "license": "MIT",
+  "environment": "client",
+  "entrypoints": { "client": ["k2.link.K2Link"] },
+  "mixins": ["k2link.mixins.json"],
+  "depends": {
+    "fabricloader": ">=0.19.0",
+    "minecraft": ">=26.3 <26.4-",
+    "java": ">=25"
+  }
+}

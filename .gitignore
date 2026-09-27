@@ -1,0 +1,12 @@
+# Gradle / Loom
+.gradle/
+build/
+run/
+*.log
+# .NET compile check
+bin/
+obj/
+# IDE
+.idea/
+.vs/
+*.iml

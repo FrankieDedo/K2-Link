@@ -1,0 +1,30 @@
+// K2 Link for Minecraft: Java Edition 26.x — a client-only Fabric mod that serves the player's live
+// state as flat JSON on http://127.0.0.1:34874/state for K2's Minecraft game profile.
+// 26.x is not obfuscated: no mappings, the code uses Mojang's own names. Needs only Fabric Loader
+// (no Fabric API): the one hook it needs is a mixin on Minecraft.tick().
+// NOT part of K2.sln. Build with `gradlew build` (JDK 25) from this folder; jar in build/libs/.
+plugins {
+    id 'net.fabricmc.fabric-loom' version "${loom_version}"
+}
+
+version = project.mod_version
+group = 'k2.link'
+base { archivesName = 'k2link-minecraft' }
+
+dependencies {
+    minecraft "com.mojang:minecraft:${project.minecraft_version}"
+    implementation "net.fabricmc:fabric-loader:${project.loader_version}"
+}
+
+processResources {
+    def version = project.version
+    inputs.property "version", version
+    filesMatching("fabric.mod.json") { expand "version": version }
+}
+
+tasks.withType(JavaCompile).configureEach { it.options.release = 25 }
+
+java {
+    sourceCompatibility = JavaVersion.VERSION_25
+    targetCompatibility = JavaVersion.VERSION_25
+}

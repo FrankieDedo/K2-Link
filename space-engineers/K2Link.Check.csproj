@@ -1,0 +1,44 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <!-- COMPILE CHECK ONLY for the K2 Link Space Engineers mod. The mod itself ships as source:
+       the game compiles K2Link/Data/Scripts/**.cs when a world loads it. This project just runs the
+       same code past a compiler (C# 6, like the game's) against the game's own DLLs, so a typo shows
+       up here instead of in the game log. It does NOT check the mod whitelist — keep to ModAPI types.
+       NOT part of K2.sln. `dotnet build` from this folder; `-p:Bin64=...` if the game is not found. -->
+  <PropertyGroup>
+    <TargetFramework>net48</TargetFramework>
+    <AssemblyName>K2Link.SE.Check</AssemblyName>
+    <RootNamespace>K2Link.SE</RootNamespace>
+    <LangVersion>6</LangVersion>
+    <EnableDefaultCompileItems>false</EnableDefaultCompileItems>
+    <Nullable>disable</Nullable>
+    <PlatformTarget>x64</PlatformTarget>
+    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+    <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
+    <SeRoot>$(registry:HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\Steam App 244850@InstallLocation)</SeRoot>
+    <SeRoot Condition="'$(SeRoot)' == ''">$(registry:HKEY_LOCAL_MACHINE\SOFTWARE\WOW6432Node\Microsoft\Windows\CurrentVersion\Uninstall\Steam App 244850@InstallLocation)</SeRoot>
+    <!-- Not every Steam library registers an uninstall key (a library on a second drive often
+         doesn't): fall back to the usual library locations. -->
+    <SeRoot Condition="'$(SeRoot)' == '' and Exists('D:\SteamLibrary\steamapps\common\SpaceEngineers')">D:\SteamLibrary\steamapps\common\SpaceEngineers</SeRoot>
+    <SeRoot Condition="'$(SeRoot)' == ''">$(MSBuildProgramFiles32)\Steam\steamapps\common\SpaceEngineers</SeRoot>
+    <Bin64 Condition="'$(Bin64)' == ''">$(SeRoot)\Bin64</Bin64>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Include="K2Link\Data\Scripts\**\*.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.NETFramework.ReferenceAssemblies.net48" Version="1.0.3" PrivateAssets="all" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="VRage"><HintPath>$(Bin64)\VRage.dll</HintPath><Private>false</Private></Reference>
+    <Reference Include="VRage.Game"><HintPath>$(Bin64)\VRage.Game.dll</HintPath><Private>false</Private></Reference>
+    <Reference Include="VRage.Math"><HintPath>$(Bin64)\VRage.Math.dll</HintPath><Private>false</Private></Reference>
+    <Reference Include="VRage.Library"><HintPath>$(Bin64)\VRage.Library.dll</HintPath><Private>false</Private></Reference>
+    <Reference Include="Sandbox.Common"><HintPath>$(Bin64)\Sandbox.Common.dll</HintPath><Private>false</Private></Reference>
+    <Reference Include="Sandbox.Game"><HintPath>$(Bin64)\Sandbox.Game.dll</HintPath><Private>false</Private></Reference>
+  </ItemGroup>
+
+</Project>

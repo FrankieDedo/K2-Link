@@ -1,0 +1,7 @@
+{
+  "required": true,
+  "package": "k2.link.mixin",
+  "compatibilityLevel": "JAVA_25",
+  "client": ["MinecraftMixin"],
+  "injectors": { "defaultRequire": 1 }
+}
