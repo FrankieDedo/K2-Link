@@ -27,8 +27,8 @@ Client-only: works in single-player and on any server.
 
 | | |
 |---|---|
-| Kind | ModAPI mod (no plugin loader needed) |
-| Install | single-player: copy the `K2Link` folder into `%AppData%\SpaceEngineers\Mods\`, then add **K2Link** to the world's mods. Dedicated servers: add the Workshop item (once published) to the server's mod list |
+| Kind | ModAPI mod (no plugin loader needed) — [Steam Workshop](https://steamcommunity.com/sharedfiles/filedetails/?id=3808623622) |
+| Install | single-player: copy the `K2Link` folder into `%AppData%\SpaceEngineers\Mods\`, then add **K2Link** to the world's mods. Dedicated servers: add the [Workshop item](https://steamcommunity.com/sharedfiles/filedetails/?id=3808623622) to the server's mod list |
 | Serves | mod scripts cannot open sockets, so it writes `state.json` to `%AppData%\SpaceEngineers\Storage\<mod>_K2Link\` four times a second |
 
 Nothing runs on the server; the mod only reads what your own client already knows. Suit
